@@ -42,62 +42,63 @@ The sketch has an infrastructure of connection to wifi with shared secrets, mqtt
 
 
 
-"scanWifi":"ON" / "OFF"     if ON wifi performs a scan of available wifi nets and reports them, SSID und RSSI on mqtt wifiscan/id
-"state":"ON" / "OFF"        on/off-switch, however, setting brightness to 0 is less destructive
-"hueRange":int              rangeWave parameter 
-"quart": int                rangeWave parameter 
-"animFactor"                multiplicator for stepTime
-"stepTime"                  ms of each animStep 
-"bright"                    brightness from 0 to 255, if less than 6 color depth is very reduced. Defines how much power is needed  
-"brightness"                synonym.               so it's advisable to not go up to high when powered from just an usb-wallwart
-"colorHsv"                  baseColor as HSV hue saturation Value range 0-255. 
-"effect"                    one of the following effects:
+- "scanWifi":"ON" / "OFF"     if ON wifi performs a scan of available wifi nets and reports them, SSID und RSSI on mqtt wifiscan/id
+- "state":"ON" / "OFF"        on/off-switch, however, setting brightness to 0 is less destructive
+- "hueRange":int              rangeWave parameter 
+- "quart": int                rangeWave parameter 
+- "animFactor"                multiplicator for stepTime
+- "stepTime"                  ms of each animStep 
+- "bright"                    brightness from 0 to 255, if less than 6 color depth is very reduced. Defines how much power is needed  
+- "brightness"                synonym.               so it's advisable to not go up to high when powered from just an usb-wallwart
+- "colorHsv"                  baseColor as HSV hue saturation Value range 0-255. 
+- "effect"                    one of the following effects:
 
-om danke herz kreis kuss    the 16 'internal' images can each be selected by name of the variable
+the 16 'internal' images can each be selected by name of the variable:
+om danke herz kreis kuss    
 schmetterling delphin 
 maskulin feminin regenbogen 
 tatzen cool apfel banane 
 erdbeer melone
 
-shiftBand rangeWave sineHue 3 color animations designed for led strips, on the matrix they appear as color stripes 
-solid                       solid shows the baseColor as a solid block, change it with colorHsv
-kelvin                      shows a color given in Kelvin as a solid block. Wide range of yellow, orange 
-adhoc (data)                allows to define an image on the fly, supply the rgb values as a list in data
+- shiftBand rangeWave sineHue 3 color animations designed for led strips, on the matrix they appear as color stripes 
+- solid                       solid shows the baseColor as a solid block, change it with colorHsv
+- kelvin                      shows a color given in Kelvin as a solid block. Wide range of yellow, orange 
+- adhoc (data)                allows to define an image on the fly, supply the rgb values as a list in data
 
 
 
-showByIndex                 selects an image by it's position in the index table for the 'external' images 
-showByName                  selects an image by it's name from the 'external' images
-cycleInt                    cycles a range from the 'internal' images, starting with von, ending at bis
-cycleExt                    cycles a range from the 'external' images, starting with von, ending at bis
-cycleByName                 cycles through a list of images given as parameter.
+- showByIndex                 selects an image by it's position in the index table for the 'external' images 
+- showByName                  selects an image by it's name from the 'external' images
+- cycleInt                    cycles a range from the 'internal' images, starting with von, ending at bis
+- cycleExt                    cycles a range from the 'external' images, starting with von, ending at bis
+- cycleByName                 cycles through a list of images given as parameter.
 
 
 
-Examples:
+## Examples:
 
 
-#effect om
+###effect om
  mosquitto_pub -h mqtt-host -u user -P password -t led/mm/set -m '{"state":"ON","effect":"om","bright":8}'
  
-#cycleInt
+###cycleInt
  
- # heart circle
+ #### heart circle
  mosquitto_pub -h mqtt-host -u user -P password -t led/mm/set -m '{"cycleInt":{"von":2,"bis":"3"},"stepTime":8000,"bright":12}'
 
 
-# cycleExt
+### cycleExt
  
- # herzen
+ #### herzen
  mosquitto_pub -h mqtt-host -u user -P password -t led/km/set -m '{"cycleExt":{"von":219,"bis":"231"},"stepTime":600}'
 
  
-#showByName
+###showByName
  mosquitto_pub -h mqtt-host -u user -P password -t led/mm/set -m '{"showByName":"1f958"}'
  
-# cycleByName
+### cycleByName
  mosquitto_pub -h mqtt-host -u user -P password -t led/mm/set -m '{"cycleByName":"1f964,1f958,1f957,1f951,1f95d,1f95e","stepTime":2000}'
  
-# adhoc data 
+### adhoc data 
  mosquitto_pub -h mqtt-host -u user -P password -t led/mk/set -m '{"state":"ON","bright":6,"effect":"adhoc","data":"0x040404, 0x040302, 0x02080e, 0x011224, 0x021529, 0x021529, 0x021528, 0x021528, 0x021528, 0x021528, 0x021529, 0x021529, 0x011224, 0x02080e, 0x040302, 0x040404,0x040302, 0x031425, 0x195389, 0x4a86bd, 0x5891c4, 0x5891c4, 0x5891c4, 0x5891c4, 0x5891c4, 0x5891c4, 0x5891c4, 0x5891c4, 0x4a86bd, 0x195389, 0x031425, 0x040302,0x020910, 0x145491, 0x6aade7, 0x76b5ed, 0x70b2ed, 0x70b3ed, 0x6fb3ed, 0x6fb3ed, 0x70b3ed, 0x70b2ed, 0x70b2ed, 0x71b3ed, 0x76b5ed, 0x6aade7, 0x145491, 0x020910,0x02152b, 0x2a7bc6, 0x5ca9eb, 0x53a3e9, 0x4d9ee7, 0x50a0e8, 0x54a4ea, 0x549fe7, 0x5d9ae1, 0x5e9ae1, 0x589be4, 0x53a3e9, 0x54a4e9, 0x5ca9eb, 0x2b7bc6, 0x02152b,0x021832, 0x227acc, 0x499fea, 0x489ee9, 0x469ce8, 0x85b0e7, 0xa8bde6, 0x9ab7e7, 0x55a0e8, 0x449be8, 0x4d90e4, 0x5e93e0, 0x499be7, 0x499fea, 0x227acc, 0x021832,0x031832, 0x1b75cb, 0x3b97e9, 0x4ea0e9, 0xc2d5f2, 0x7cb1ec, 0x3d97e8, 0x3e95e8, 0x99baeb, 0xc3cfec, 0x8eb6ea, 0x3a95e7, 0x3c96e8, 0x3c97e9, 0x1b75cb, 0x031832,0x031732, 0x0f6cca, 0x2c8de7, 0x2e8ee6, 0x2886e4, 0x73adeb, 0xcad9f1, 0x76abe6, 0x2784e3, 0x2c8de6, 0x79b4ed, 0xafd1f2, 0x3a94e7, 0x2b8ce7, 0x0f6cca, 0x031732,0x041731, 0x0462c8, 0x0e78e4, 0x167ae3, 0x538ae1, 0x3f80de, 0x1870de, 0x6d93df, 0xb3c3e5, 0x99b6e8, 0x5786e0, 0x4b87e2, 0x157ae3, 0x0e78e4, 0x0462c8, 0x041731,0x041631, 0x045dc7, 0x046de2, 0x0167e0, 0x7facec, 0xccd3ee, 0x7f9ee5, 0xdde6f6, 0xcad5f0, 0x8fa0da, 0xb0bde5, 0x669de8, 0x0469e1, 0x046de2, 0x045dc7, 0x041631,0x041531, 0x0459c7, 0x0469e2, 0x0368e1, 0x0869e1, 0x5c9be9, 0xb2ccf0, 0x4f8ce7, 0x6b93e4, 0xb1beea, 0xfffcf9, 0x7caaec, 0x0064e0, 0x0469e2, 0x0459c7, 0x041531,0x041431, 0x0455c6, 0x0464e1, 0x0060df, 0x7ca8eb, 0xe9edf5, 0xd9e1f2, 0x7392e2, 0x085cde, 0x0f68e1, 0x0462e0, 0x0362e0, 0x0463e0, 0x0464e1, 0x0455c6, 0x041431,0x041331, 0x0451c6, 0x045ee0, 0x045edf, 0x045edf, 0x035edf, 0x025ddf, 0x1360de, 0x88a2de, 0x9cb0dd, 0xc1cbe9, 0x7da6eb, 0x005ade, 0x045ee0, 0x0451c6, 0x041331,0x04112c, 0x044bc2, 0x045adf, 0x0257de, 0x4281e5, 0x86adec, 0x85aceb, 0x75a1ea, 0x1361e0, 0x0358de, 0x0459de, 0x0459de, 0x0459de, 0x045adf, 0x044bc2, 0x04112c,0x040813, 0x05379c, 0x0655e0, 0x0655df, 0x0655de, 0x0655de, 0x0655de, 0x0655de, 0x0454de, 0x0453de, 0x0453de, 0x0554de, 0x0755df, 0x0655e0, 0x05379c, 0x040813,0x040302, 0x041131, 0x0636a1, 0x0846ca, 0x0848cd, 0x0848cd, 0x0848cd, 0x0848cd, 0x0848cd, 0x0848cd, 0x0848cd, 0x0848cd, 0x0846ca, 0x0636a1, 0x041131, 0x040302,0x040404, 0x040302, 0x040916, 0x041235, 0x05143c, 0x05133c, 0x05133c, 0x05133c, 0x05133c, 0x05133c, 0x05133c, 0x05143c, 0x041235, 0x040916, 0x040302, 0x040404,"}'
  
