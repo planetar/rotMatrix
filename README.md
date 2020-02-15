@@ -40,7 +40,7 @@ The sketch has an infrastructure of connection to wifi with shared secrets, mqtt
 
 ## Controlling the display with mqtt
 
-
+### General commands / parameters
 
 - "scanWifi":"ON" / "OFF"     if ON wifi performs a scan of available wifi nets and reports them, SSID und RSSI on mqtt wifiscan/id
 - "state":"ON" / "OFF"        on/off-switch, however, setting brightness to 0 is less destructive
@@ -53,6 +53,7 @@ The sketch has an infrastructure of connection to wifi with shared secrets, mqtt
 - "colorHsv"                  baseColor as HSV hue saturation Value range 0-255. 
 - "effect"                    one of the following effects:
 
+### effects
 the 16 'internal' images can each be selected by name of the variable:
 om danke herz kreis kuss    
 schmetterling delphin 
@@ -78,10 +79,10 @@ erdbeer melone
 ## Examples:
 
 
-###effect om
+### effect om
  mosquitto_pub -h mqtt-host -u user -P password -t led/mm/set -m '{"state":"ON","effect":"om","bright":8}'
  
-###cycleInt
+### cycleInt
  
  #### heart circle
  mosquitto_pub -h mqtt-host -u user -P password -t led/mm/set -m '{"cycleInt":{"von":2,"bis":"3"},"stepTime":8000,"bright":12}'
@@ -93,7 +94,7 @@ erdbeer melone
  mosquitto_pub -h mqtt-host -u user -P password -t led/km/set -m '{"cycleExt":{"von":219,"bis":"231"},"stepTime":600}'
 
  
-###showByName
+### showByName
  mosquitto_pub -h mqtt-host -u user -P password -t led/mm/set -m '{"showByName":"1f958"}'
  
 ### cycleByName
