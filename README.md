@@ -26,8 +26,8 @@ the next level circles through the 'internal' pics and the last level circles th
 
 
 This sketch was developped and tested with arduino ESP8266 core 2.4.2
-2.5.0 has occasional but rather frequent crashes in SPIFFS 
->2.5.0 has breaking changes in the way interrupts are handled 
+- 2.5.0 has occasional but rather frequent crashes in SPIFFS 
+- core versions above 2.5.0 have breaking changes in the way interrupts are handled and may not work.
 
 Wishlist: 
 btnClick of rotary still bounces, some sort of optical feedback of the current level would really help
