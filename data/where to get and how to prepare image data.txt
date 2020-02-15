@@ -1,0 +1,10 @@
+ 
+how to prepare images so they can be shown on the matrix? 
+
+The matrix is organized in a zig-zag topology and so the images need to be shuffled accordingly. 
+I've written a bash script for it which combines imagemagick and a command line hex dump tool 
+to convert hundreds of .png images in half a minute. Or jpg, gif, what you have: minimal change.
+Find it at https://github.com/planetar/matrixPics
+
+The sketch was developped to show emojis, you may find some material with a search for Google's Noto Font 
+upload the content of the filled data folder with the Arduino ESP8266 Sketch Data Upload tool.
