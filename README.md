@@ -1,7 +1,8 @@
 # rotMatrix
 
 rotMatrix is an Arduino sketch for driving a 16x16 WS2812b matrix to display lowtech images.
-It offers several alternative sources for image data and ways to specify which of them to show.
+It integrates an optional rotary encoder as a means to control the display. It offers several alternative 
+sources for image data and ways to specify which of them to show.
 
 It currently supports a limited number of images stored in dedicated variables in matrixImg.h 
 Those 16 pics are sometimes referenced as 'internal'
@@ -33,7 +34,7 @@ Wishlist:
 btnClick of rotary still bounces, some sort of optical feedback of the current level would really help
 
 
-The Sketch is prepared to keep some config separate for a range of devices which run individual compiles of the sketch, define it below.
+The Sketch is prepared to keep some config separate for a range of devices which run individual compiles of the sketch, define it below. In other words you can have a number of devices running in the same network and they each have a separate id and can be addressed independently via mqtt.
 
 The sketch has an infrastructure of connection to wifi with shared secrets, mqtt with shared secrets and Arduino OTA with shared secret.
 
@@ -42,7 +43,8 @@ The sketch has an infrastructure of connection to wifi with shared secrets, mqtt
 
 ### General commands / parameters
 
-- "scanWifi":"ON" / "OFF"     if ON wifi performs a scan of available wifi nets and reports them, SSID und RSSI on mqtt wifiscan/id
+- "scanWifi":"ON" / "OFF"     if ON wifi performs a scan of available wifi nets and reports them, SSID und RSSI on mqtt
+                              wifiscan/id
 - "state":"ON" / "OFF"        on/off-switch, however, setting brightness to 0 is less destructive
 - "hueRange":int              rangeWave parameter 
 - "quart": int                rangeWave parameter 
