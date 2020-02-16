@@ -60,21 +60,21 @@ btnClick of rotary still bounces (you clicked the switch once and it still recei
 
 ### effects
 - the 16 'internal' images can each be selected by name of the variable:
--- om 
----danke -- herz 
--- kreis
--- kuss
--- schmetterling
--- delphin 
--- maskulin 
--- feminin 
--- regenbogen 
--- tatzen
--- cool 
--- apfel
--- banane 
--- erdbeer 
--- melone
+* om 
+*-danke -- herz 
+* kreis
+* kuss
+* schmetterling
+* delphin 
+* maskulin 
+* feminin 
+* regenbogen 
+* tatzen
+* cool 
+* apfel
+* banane 
+* erdbeer 
+* melone
 
 - shiftBand rangeWave sineHue 3 color animations designed for led strips, on the matrix they appear as color stripes 
 - solid                       solid shows the baseColor as a solid block, change it with colorHsv
