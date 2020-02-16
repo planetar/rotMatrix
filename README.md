@@ -38,7 +38,7 @@ The Sketch is prepared to keep some config separate for a range of devices which
 The sketch has an infrastructure of connection to wifi with shared secrets, mqtt with shared secrets and Arduino OTA with shared secret.
 
 ### Wishlist / TBD 
-btnClick of rotary still bounces (you clicked the switch once and it still received to impulses...), some sort of optical feedback of the current level would really help.
+bome sort of optical feedback of the current level of the rotary encoder would really help.
 
 
 
@@ -60,21 +60,22 @@ btnClick of rotary still bounces (you clicked the switch once and it still recei
 
 ### effects
 - the 16 'internal' images can each be selected by name of the variable:
-* om 
-*-danke -- herz 
-* kreis
-* kuss
-* schmetterling
-* delphin 
-* maskulin 
-* feminin 
-* regenbogen 
-* tatzen
-* cool 
-* apfel
-* banane 
-* erdbeer 
-* melone
+*- om 
+*- danke 
+*- herz 
+*- kreis
+*- kuss
+*- schmetterling
+*- delphin 
+*- maskulin 
+*- feminin 
+*- regenbogen 
+*- tatzen
+*- cool 
+*- apfel
+*- banane 
+*- erdbeer 
+*- melone
 
 - shiftBand rangeWave sineHue 3 color animations designed for led strips, on the matrix they appear as color stripes 
 - solid                       solid shows the baseColor as a solid block, change it with colorHsv
