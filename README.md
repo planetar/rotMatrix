@@ -4,6 +4,7 @@ rotMatrix is an Arduino sketch for driving a 16x16 WS2812b matrix to display low
 It integrates an optional rotary encoder as a means to control the display. It offers several alternative 
 sources for image data and ways to specify which of them to show.
 
+### Image data sources and format
 It currently supports a limited number of images stored in dedicated variables in matrixImg.h 
 Those 16 pics are sometimes referenced as 'internal'
 
@@ -17,7 +18,9 @@ In all cases the image data are 256 hex rgb values which describe the 16x16 matr
 (16 values left-to-right, change of row, 16 values right to left, change of row, repeat)
 
 Regardles where stored the image data need to be shuffled accordingly to render propperly.
+A bash script which does take care of this requirement and batch converts a folder of png images can be found at https://github.com/planetar/matrixPics
 
+### Control channels
 The sketch supports 2 different ways to select images and adjust parameters: 
 - mqtt messages (sort of the native language) and
 - manual input with a rotary endoder 
@@ -25,18 +28,18 @@ The sketch supports 2 different ways to select images and adjust parameters:
 The rotary encoder's switch shifts three functions, initially the encoder regulates the brightness, 
 the next level circles through the 'internal' pics and the last level circles through the 'external' pics.
 
-
+### Compileing
 This sketch was developped and tested with arduino ESP8266 core 2.4.2
 - 2.5.0 has occasional but rather frequent crashes in SPIFFS 
 - core versions above 2.5.0 have breaking changes in the way interrupts are handled and may not work.
 
-Wishlist: 
-btnClick of rotary still bounces, some sort of optical feedback of the current level would really help
-
-
 The Sketch is prepared to keep some config separate for a range of devices which run individual compiles of the sketch, define it below. In other words you can have a number of devices running in the same network and they each have a separate id and can be addressed independently via mqtt.
 
 The sketch has an infrastructure of connection to wifi with shared secrets, mqtt with shared secrets and Arduino OTA with shared secret.
+
+### Wishlist / TBD 
+btnClick of rotary still bounces (you clicked the switch once and it still received to impulses...), some sort of optical feedback of the current level would really help.
+
 
 
 ## Controlling the display with mqtt
@@ -78,30 +81,39 @@ erdbeer melone
 
 
 
-## Examples:
+### Examples:
 
 
-### effect om
+#### effect om
  mosquitto_pub -h mqtt-host -u user -P password -t led/mm/set -m '{"state":"ON","effect":"om","bright":8}'
  
-### cycleInt
+#### cycleInt
  
- #### heart circle
+ ##### heart circle
  mosquitto_pub -h mqtt-host -u user -P password -t led/mm/set -m '{"cycleInt":{"von":2,"bis":"3"},"stepTime":8000,"bright":12}'
 
 
-### cycleExt
+#### cycleExt
  
- #### herzen
+ ##### herzen
  mosquitto_pub -h mqtt-host -u user -P password -t led/km/set -m '{"cycleExt":{"von":219,"bis":"231"},"stepTime":600}'
 
  
-### showByName
+#### showByName
  mosquitto_pub -h mqtt-host -u user -P password -t led/mm/set -m '{"showByName":"1f958"}'
  
-### cycleByName
+#### cycleByName
  mosquitto_pub -h mqtt-host -u user -P password -t led/mm/set -m '{"cycleByName":"1f964,1f958,1f957,1f951,1f95d,1f95e","stepTime":2000}'
  
-### adhoc data 
+#### adhoc data 
  mosquitto_pub -h mqtt-host -u user -P password -t led/mk/set -m '{"state":"ON","bright":6,"effect":"adhoc","data":"0x040404, 0x040302, 0x02080e, 0x011224, 0x021529, 0x021529, 0x021528, 0x021528, 0x021528, 0x021528, 0x021529, 0x021529, 0x011224, 0x02080e, 0x040302, 0x040404,0x040302, 0x031425, 0x195389, 0x4a86bd, 0x5891c4, 0x5891c4, 0x5891c4, 0x5891c4, 0x5891c4, 0x5891c4, 0x5891c4, 0x5891c4, 0x4a86bd, 0x195389, 0x031425, 0x040302,0x020910, 0x145491, 0x6aade7, 0x76b5ed, 0x70b2ed, 0x70b3ed, 0x6fb3ed, 0x6fb3ed, 0x70b3ed, 0x70b2ed, 0x70b2ed, 0x71b3ed, 0x76b5ed, 0x6aade7, 0x145491, 0x020910,0x02152b, 0x2a7bc6, 0x5ca9eb, 0x53a3e9, 0x4d9ee7, 0x50a0e8, 0x54a4ea, 0x549fe7, 0x5d9ae1, 0x5e9ae1, 0x589be4, 0x53a3e9, 0x54a4e9, 0x5ca9eb, 0x2b7bc6, 0x02152b,0x021832, 0x227acc, 0x499fea, 0x489ee9, 0x469ce8, 0x85b0e7, 0xa8bde6, 0x9ab7e7, 0x55a0e8, 0x449be8, 0x4d90e4, 0x5e93e0, 0x499be7, 0x499fea, 0x227acc, 0x021832,0x031832, 0x1b75cb, 0x3b97e9, 0x4ea0e9, 0xc2d5f2, 0x7cb1ec, 0x3d97e8, 0x3e95e8, 0x99baeb, 0xc3cfec, 0x8eb6ea, 0x3a95e7, 0x3c96e8, 0x3c97e9, 0x1b75cb, 0x031832,0x031732, 0x0f6cca, 0x2c8de7, 0x2e8ee6, 0x2886e4, 0x73adeb, 0xcad9f1, 0x76abe6, 0x2784e3, 0x2c8de6, 0x79b4ed, 0xafd1f2, 0x3a94e7, 0x2b8ce7, 0x0f6cca, 0x031732,0x041731, 0x0462c8, 0x0e78e4, 0x167ae3, 0x538ae1, 0x3f80de, 0x1870de, 0x6d93df, 0xb3c3e5, 0x99b6e8, 0x5786e0, 0x4b87e2, 0x157ae3, 0x0e78e4, 0x0462c8, 0x041731,0x041631, 0x045dc7, 0x046de2, 0x0167e0, 0x7facec, 0xccd3ee, 0x7f9ee5, 0xdde6f6, 0xcad5f0, 0x8fa0da, 0xb0bde5, 0x669de8, 0x0469e1, 0x046de2, 0x045dc7, 0x041631,0x041531, 0x0459c7, 0x0469e2, 0x0368e1, 0x0869e1, 0x5c9be9, 0xb2ccf0, 0x4f8ce7, 0x6b93e4, 0xb1beea, 0xfffcf9, 0x7caaec, 0x0064e0, 0x0469e2, 0x0459c7, 0x041531,0x041431, 0x0455c6, 0x0464e1, 0x0060df, 0x7ca8eb, 0xe9edf5, 0xd9e1f2, 0x7392e2, 0x085cde, 0x0f68e1, 0x0462e0, 0x0362e0, 0x0463e0, 0x0464e1, 0x0455c6, 0x041431,0x041331, 0x0451c6, 0x045ee0, 0x045edf, 0x045edf, 0x035edf, 0x025ddf, 0x1360de, 0x88a2de, 0x9cb0dd, 0xc1cbe9, 0x7da6eb, 0x005ade, 0x045ee0, 0x0451c6, 0x041331,0x04112c, 0x044bc2, 0x045adf, 0x0257de, 0x4281e5, 0x86adec, 0x85aceb, 0x75a1ea, 0x1361e0, 0x0358de, 0x0459de, 0x0459de, 0x0459de, 0x045adf, 0x044bc2, 0x04112c,0x040813, 0x05379c, 0x0655e0, 0x0655df, 0x0655de, 0x0655de, 0x0655de, 0x0655de, 0x0454de, 0x0453de, 0x0453de, 0x0554de, 0x0755df, 0x0655e0, 0x05379c, 0x040813,0x040302, 0x041131, 0x0636a1, 0x0846ca, 0x0848cd, 0x0848cd, 0x0848cd, 0x0848cd, 0x0848cd, 0x0848cd, 0x0848cd, 0x0848cd, 0x0846ca, 0x0636a1, 0x041131, 0x040302,0x040404, 0x040302, 0x040916, 0x041235, 0x05143c, 0x05133c, 0x05133c, 0x05133c, 0x05133c, 0x05133c, 0x05133c, 0x05143c, 0x041235, 0x040916, 0x040302, 0x040404,"}'
  
+## Enclosure and diffusor
+A diffusor, or scrim, softens the light and spreads it over a wider area. In the matrix there is a very bright LED and then 8mm darkness in each direction and then the next led. That makes recognizing subtle differences in brightness and colour very difficult and our brains fail to recognize an image unless it is 'flat' with few colours and no dithering.
+
+With a diffusor the light of each LED ideally covers the entire 10x10mm plain around it. And suddenly the error correction in our visual cortex works wonders and allows us to recognize fine structures from dithered colours. Looking directly at the matrix there is only pixel salad, with the diffusor in between and some distance I see the emoji-picture. (for that is what I was trying to achieve, a display for emoji icons)
+
+You can find such a thing at https://www.thingiverse.com/thing:4159218
+
+An enclosure which holds the matrix, a diffusor, mount points for the rotary encoder and the mcu is in the making. There is a 3d model for an enclosure that lacks the diffusor (so you would have to glue that on top of it). Open an issue if you want that.
+
