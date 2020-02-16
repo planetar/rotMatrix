@@ -60,22 +60,22 @@ bome sort of optical feedback of the current level of the rotary encoder would r
 
 ### effects
 - the 16 'internal' images can each be selected by name of the variable:
-*- om 
-*- danke 
-*- herz 
-*- kreis
-*- kuss
-*- schmetterling
-*- delphin 
-*- maskulin 
-*- feminin 
-*- regenbogen 
-*- tatzen
-*- cool 
-*- apfel
-*- banane 
-*- erdbeer 
-*- melone
+  * om 
+  * danke 
+  * herz 
+  * kreis
+  * kuss
+  * schmetterling
+  * delphin 
+  * maskulin 
+  * feminin 
+  * regenbogen 
+  * tatzen
+  * cool 
+  * apfel
+  * banane 
+  * erdbeer 
+  * melone
 
 - shiftBand rangeWave sineHue 3 color animations designed for led strips, on the matrix they appear as color stripes 
 - solid                       solid shows the baseColor as a solid block, change it with colorHsv
